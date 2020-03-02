@@ -1,0 +1,30 @@
+{
+  "name": "reservation-ms",
+  "version": "1.0.0",
+  "description": "reservation management system for rental car business",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "reservation-ms"
+  },
+  "author": "Martin Naparstek",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "express": "^4.17.1",
+    "pg": "^7.18.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}
