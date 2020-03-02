@@ -4,6 +4,11 @@ const app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
 
+app.use('/', (req, res) => {
+    res.send('Hello');
+})
+
+
 
 // routes
 // customers routes
