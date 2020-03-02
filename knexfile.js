@@ -1,11 +1,9 @@
 module.exports = {
 
-
   development: {
     client: 'pg',
-    connection: {
-      database: 'postgres://tinchonapa:test@localhost/reservation-ms'
-    },/*,
+    connection: 'postgres://tinchonapa:test@localhost/reservation_ms',
+    /*,
     pool: {
       min: 2,
       max: 10
