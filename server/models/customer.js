@@ -8,6 +8,11 @@ module.exports = {
                 dlN: data.dlN, dlCountry: data.dlCountry, dlState: data.dlState,
                 dlExp: data.dlExp
                 }, '*')
+    },
+    showCustomers(data) {
+        return knex
+            .select()
+            .table('customers')
     }
 }
 

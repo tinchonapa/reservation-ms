@@ -20,10 +20,6 @@ class Form extends React.Component {
     onInputChange(event) {
         const key = event.target.name;
         const value = event.target.value;
-        
-        // checking if it works. Erase later
-        console.log(key, value);
-
         this.setState({
             [key]: value
         });
@@ -119,7 +115,7 @@ class Form extends React.Component {
                     />
                 </label>
                 <br />
-                <button>Add Customer</button>
+                <button onClick={this.onDelete}>Add Customer</button>
             </form>
         )
     }

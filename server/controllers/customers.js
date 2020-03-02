@@ -18,7 +18,16 @@ const postCustomer = (req, res, next) => {
 }
 
 const getCustomer = (req, res, next) => {
-    console.log('params for customer ', req.params);
+    console.log('params for customer ', req.params)
+    model.showCustomers()
+        .then(customers => {
+            console.log('This are customers ', customers)
+            res.status(200).json(customers)
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).send(error)
+        });
 }
 
 module.exports = {

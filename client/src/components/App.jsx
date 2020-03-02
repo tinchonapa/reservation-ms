@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from './Form.jsx';
+import CustomerList from './CustomerList.jsx';
 
 class App extends React.Component {
     constructor(props){
@@ -11,15 +12,14 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http:/localhost:3002/api/customers')
+        fetch('/api/customers')
             .then((res) => {
-                console.log('Initial res is ', res)
                 return res.json()
             })
             .then((data) => {
                 console.log('this is data ', data);
                 this.setState({
-                    customers: data.customers
+                    customers: data
                 })
             })
     }
@@ -37,8 +37,18 @@ class App extends React.Component {
     render() {
         return (
          <div>
-             <h1>Hello</h1>
-             <Form addNewCustomer={this.addNewCustomer}/>
+             <h1>Reservation Form</h1>
+             <div className="customer-info">
+                <h3>Customer Info</h3>
+                <Form addNewCustomer={this.addNewCustomer}/>
+                <CustomerList customers={this.state.customers} />
+             </div>
+             <div className="vehicle-info">
+                 <h3>Vehicle Info</h3>
+             </div>
+             <div className="reservation-info">
+                 <h3>Reservation Info</h3>
+             </div>
          </div>
         )
     }
