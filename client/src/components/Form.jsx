@@ -45,6 +45,19 @@ class Form extends React.Component {
         event.preventDefault();
         const newCustomer = this.state;
         this.props.addNewCustomer(newCustomer);
+        fetch('/api/customers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newCustomer),
+        })
+        .then((data) => {
+            console.log('Success ', data);
+        })
+        .catch((error) => {
+            console.error('Error: ', error);
+        });
         this.clearForm();
     }
 
