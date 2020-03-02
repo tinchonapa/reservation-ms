@@ -25,19 +25,6 @@ class App extends React.Component {
     }
 
     addNewCustomer(newCustomerData) {
-        /*fetch('http:/localhost:3002/api/customers', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newCustomerData),
-        })
-        .then((data) => {
-            console.log('Success ', data);
-        })
-        .catch((error) => {
-            console.error('Error: ', error);
-        });*/
         const id = this.state.customers.length + 1;
         newCustomerData.id = id;
         const newCustomer = this.state.customers.concat(newCustomerData);

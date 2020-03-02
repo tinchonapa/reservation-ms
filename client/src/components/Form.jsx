@@ -89,7 +89,7 @@ class Form extends React.Component {
                 <br />
                 <label>
                     Drivers License#:
-                    <input name="dln"
+                    <input name="dlN"
                         value={this.state.dlN}
                         onChange={this.onInputChange}
                     />

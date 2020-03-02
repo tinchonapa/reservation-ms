@@ -6,6 +6,15 @@ const postCustomer = (req, res, next) => {
     const fName = req.body.fName;
     const lName = req.body.lName;
     console.log('this is the name ', fName, lName);
+    model.createCustomer(req.body)
+        .then( data => {
+            console.log('this customer has been added', data);
+            res.status(200).json({});
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).send(error);
+        });
 }
 
 const getCustomer = (req, res, next) => {
@@ -16,3 +25,12 @@ module.exports = {
     postCustomer,
     getCustomer
 }
+/*
+fName: '',
+lName: '',
+dob: '',
+dlN: '',
+dlCountry: '',
+dlState: '',
+dlExp: ''
+*/
