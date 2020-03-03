@@ -108,7 +108,7 @@ class CustomerForm extends React.Component {
                 </label>
                 <br />
                 <label>
-                    DL Experation Date:
+                    DL Expiration Date:
                     <input name="dlExp"
                         value={this.state.dlExp}
                         onChange={this.onInputChange}

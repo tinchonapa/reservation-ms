@@ -1,7 +1,6 @@
 const model = require('../models/customer');
 
 const postCustomer = (req, res, next) => {
-    console.log('this is customer post', req.body)
     model.createCustomer(req.body)
         .then( data => {
             console.log('this customer has been added', data);
@@ -14,7 +13,6 @@ const postCustomer = (req, res, next) => {
 }
 
 const getCustomer = (req, res, next) => {
-    console.log('params for customer ', req.params)
     model.showCustomers()
         .then(customers => {
             console.log('This are customers ', customers)
