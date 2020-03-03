@@ -15,13 +15,3 @@ module.exports = {
             .table('customers')
     }
 }
-
-/*
-fName: '',
-lName: '',
-dob: '',
-dlN: '',
-dlCountry: '',
-dlState: '',
-dlExp: ''
-*/

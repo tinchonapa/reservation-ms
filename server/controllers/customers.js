@@ -2,9 +2,6 @@ const model = require('../models/customer');
 
 const postCustomer = (req, res, next) => {
     console.log('this is customer post', req.body)
-    const customer = req.body;
-    const fName = req.body.fName;
-    const lName = req.body.lName;
     console.log('this is the name ', fName, lName);
     model.createCustomer(req.body)
         .then( data => {
@@ -25,7 +22,7 @@ const getCustomer = (req, res, next) => {
             res.status(200).json(customers)
         })
         .catch(error => {
-            console.log(error)
+            console.log(error);
             res.status(400).send(error)
         });
 }
@@ -34,12 +31,3 @@ module.exports = {
     postCustomer,
     getCustomer
 }
-/*
-fName: '',
-lName: '',
-dob: '',
-dlN: '',
-dlCountry: '',
-dlState: '',
-dlExp: ''
-*/
