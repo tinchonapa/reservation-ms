@@ -59,56 +59,56 @@ class ReservationForm extends React.Component {
     render() {
         return(
             <form onSubmit={this.onFormSubmit}>
-                <label>
-                    Driver 1:
+                <div className="form-group">
+                    <label>Driver 1: </label>
                     <input name='customer1_id'
                         value={this.state.customer1_id}
                         onChange={this.onInputChange}
                         placeholder="Customer ID"
                     />
-                </label>
-                <label>
-                    Driver 2:
+                </div>
+                <div className="form-group">
+                    <label>Driver 2: </label>
                     <input name='customer2_id'
                         value={this.state.customer2_id}
                         onChange={this.onInputChange}
                         placeholder="Customer ID"
                     />
-                </label>
-                <label>
-                    Vehicle ID:
+                </div>
+                <div className="form-group">
+                    <label>Vehicle ID: </label>
                     {/* <select> */}
                     <input name='vehicle_id'
                         value={this.state.vehicle_id}
                         onChange={this.onInputChange}
                         placeholder="Vehicle ID"
                     />
-                </label>
-                <label>
-                    Date In:
+                </div>
+                <div className="form-group">
+                    <label>Date In: </label>
                     <input name='date_in'
                         value={this.state.date_in}
                         onChange={this.onInputChange}
                         placeholder="MM/DD/YYYY"
                     />
-                </label>
-                <label>
-                    Date Out:
+                </div>
+                <div className="form-group">
+                    <label>Date Out: </label>
                     <input name='date_out'
                         value={this.state.date_out}
                         onChange={this.onInputChange}
                         placeholder="MM/DD/YYYY"
                     />
-                </label>
-                <label>
-                    Price:
+                </div>
+                <div className="form-group">
+                    <label>Price: </label>
                     <input name='price'
                         value={this.state.price}
                         onChange={this.onInputChange}
                         placeholder="$$$"
                     />
-                </label>
-                <button>Add Reservation</button>
+                </div>
+                <button type="button" className="btn btn-success">Add Reservation</button>
             </form>
         )
     }

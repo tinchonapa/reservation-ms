@@ -18,9 +18,9 @@ const VehicleList = (props) => {
     })
 
     return (
-        <ul className="vehicles">
+        <div className="list-group vehicles">
             {VehicleListComponents}
-        </ul>
+        </div>
     )
 }
 

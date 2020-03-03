@@ -20,9 +20,9 @@ const CustomerList = (props) => {
     })
 
     return (
-        <ul className="customers">
+        <div className="list-group customers">
             {CustomerListComponents}
-        </ul>
+        </div>
     )
 }
 

@@ -74,56 +74,56 @@ class VehicleForm extends React.Component {
     render() {
         return(
             <form onSubmit={this.onFormSubmit}>
-                <label>
-                    VehicleID:
+                <div className="form-group">
+                    <label>VehicleID: </label>
                     <input name="vId"
                         value={this.state.vId}
                         disabled
                     />
-                </label>
-                <label>
-                    Year:
+                </div>
+                <div className="form-group">
+                    <label>Year: </label>
                     <input name="year"
                         value={this.state.year}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <label>
-                    Make:
+                </div>
+                <div className="form-group">
+                    <label>Make: </label>
                     <input name="make"
                         value={this.state.make}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <label>
-                    Model:
+                </div>
+                <div className="form-group">
+                    <label>Model: </label>
                     <input name="model"
                         value={this.state.model}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <label>
-                    VIN#:
+                </div>
+                <div className="form-group">
+                    <label>VIN#: </label>
                     <input name="vin"
                         value={this.state.vin}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <label>
-                    Color:
+                </div>
+                <div className="form-group">
+                    <label>Color: </label>
                     <input name="color"
                         value={this.state.color}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <label>
-                    Miles:
+                </div>
+                <div className="form-group">
+                    <label>Miles: </label>
                     <input name="miles"
                         value={this.state.miles}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <button>Add Vehicle</button>                
+                </div>
+                <button type="button" className="btn btn-success">Add Vehicle</button>                
             </form>
         )
     }

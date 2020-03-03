@@ -11,9 +11,9 @@ const CustomerListItem = (props) => {
         <ul className="customers">
             <li>
                 {props.fName} {props.lName} {props.dob} {props.dlN} {props.dlCountry} {props.dlState} {props.dlExp}
-                
+                  <button type="button" className="btn btn-danger" onClick={() => {props.onDeleteCustomer(props.dlN)}}>Delete</button>
             </li>
-            <button onClick={() => {props.onDeleteCustomer(props.dlN)}}>Delete</button>
+            
             {/* <button onClick={() => {props.onEditCustomer(props.dlN)}}>Edit</button> */}
         </ul>
     )

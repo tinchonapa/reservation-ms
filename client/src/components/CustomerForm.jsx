@@ -60,62 +60,57 @@ class CustomerForm extends React.Component {
     render() {
         return(
             <form onSubmit={this.onFormSubmit}>
-                <label>
-                    First Name:
+                <div className="form-group">
+                    <label>First Name: </label>
                     <input name="fName"
                         value={this.state.fName}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <label>
-                    Last Name:
+                </div>
+                <div className="form-group">
+                    <label>Last Name: </label>
                     <input name="lName"
                         value={this.state.lName}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <br />
-                <label>
-                    Date of Birth:
+                    
+                </div>
+                <div className="form-group">
+                    <label>Date of Birth: </label>
                     <input name="dob"
                         value={this.state.dob}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <br />
-                <label>
-                    Drivers License#:
+                </div>
+                <div className="form-group">
+                    <label>Drivers License#: </label>
                     <input name="dlN"
                         value={this.state.dlN}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <br />
-                <label>
-                    DL Country:
+                </div>
+                <div className="form-group"> 
+                    <label>DL Country:</label>
                     <input name="dlCountry"
                         value={this.state.dlCountry}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <br />
-                <label>
-                    DL State:
+                </div>
+                <div className="form-group">
+                    <label>DL State: </label>
                     <input name="dlState"
                         value={this.state.dlState}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <br />
-                <label>
-                    DL Expiration Date:
+                </div>
+                <div className="form-group">
+                    <label>DL Expiration Date: </label>
                     <input name="dlExp"
                         value={this.state.dlExp}
                         onChange={this.onInputChange}
                     />
-                </label>
-                <br />
-                <button>Add Customer</button>
+                </div>
+                <button className="btn btn-success">Add Customer</button>
             </form>
         )
     }

@@ -138,24 +138,26 @@ class App extends React.Component {
 
     render() {
         return (
-         <div>
-             <h1>Reservation Form</h1>
-             <div className="navbar">
-                 <button>New Customer</button>
-                 <button>New Vehicle</button>
-                 <button>New Reservation</button>
+         <div className="container">
+             <div className="jumbotron header">
+                <h1>Reservation Form</h1>
+                <div className="btn-group">
+                    <button type="button" className="btn btn-primary">New Customer</button>
+                    <button type="button" className="btn btn-primary">New Vehicle</button>
+                    <button type="button" className="btn btn-primary">New Reservation</button>
+                </div>
              </div>
-             <div className="customer-info">
+             <div className="container customer-info">
                 <h3>Customer Info</h3>
                 <CustomerForm addNewCustomer={this.addNewCustomer} />
                 <CustomerList onDeleteCustomer={this.deleteCustomer} customers={this.state.customers} />
              </div>
-             <div className="vehicle-info">
+             <div className="container vehicle-info">
                  <h3>Vehicle Info</h3>
                  <VehicleForm addNewVehicle={this.addNewVehicle} />
                  <VehicleList vehicles={this.state.vehicles} />
              </div>
-             <div className="reservation-info">
+             <div className="container reservation-info">
                  <h3>Reservation Info</h3>
                  <ReservationForm addNewReservation={this.addNewReservation} />
                  <ReservationList reservations={this.state.reservations} />

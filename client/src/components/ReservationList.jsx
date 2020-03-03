@@ -18,9 +18,9 @@ const ReservationList = (props) => {
     })
 
     return(
-        <ul className="reservations">
+        <div className="list-group reservations">
             {ReservationListComponents}
-        </ul>
+        </div>
     )
 }
 
