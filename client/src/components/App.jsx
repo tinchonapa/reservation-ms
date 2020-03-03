@@ -11,33 +11,35 @@ class App extends React.Component {
         super(props);
         this.state ={
             customers: [],
-            vehicles: []
+            vehicles: [],
+            editCustBtn: false,
+            editVehBtn: false
         }
+
+        this.getCustomers = this.getCustomers.bind(this);
         this.addNewCustomer = this.addNewCustomer.bind(this);
+        this.deleteCustomer = this.deleteCustomer.bind(this);
+        this.getVehicles = this.getVehicles.bind(this);
         this.addNewVehicle = this.addNewVehicle.bind(this);
     }
 
     componentDidMount() {
+        this.getCustomers()
+        this.getVehicles()
+    }
+
+    // CUSTOMERS functions
+    getCustomers() {
         fetch('/api/customers')
-            .then((res) => {
-                return res.json()
+        .then((res) => {
+            return res.json()
+        })
+        .then((data) => {
+            console.log('this is data ', data);
+            this.setState({
+                customers: data
             })
-            .then((data) => {
-                console.log('this is data ', data);
-                this.setState({
-                    customers: data
-                })
-            })
-        
-        fetch('/api/vehicles')
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                this.setState({
-                    vehicles: data
-                })
-            })
+        })
     }
 
     addNewCustomer(newCustomerData) {
@@ -46,6 +48,56 @@ class App extends React.Component {
         const newCustomer = this.state.customers.concat(newCustomerData);
         this.setState({
             customers: newCustomer
+        })
+    }
+    onClickEditCust(){
+        this.setState(state => ({
+            editCustBtn: !state.editCustBtn
+        }));
+    }
+    editCustomer(dlN, customerData) {
+        fetch(`/api/customers/${dlN}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(customerData)
+        })
+        .then(data => {
+            console.log('Success ', data);
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        })
+        this.getCustomers();
+    }
+    
+    deleteCustomer(dlN) {     
+        fetch(`/api/customers/${dlN}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(data => {
+            console.log('Success ', data);
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        })
+        this.getCustomers();
+    }
+
+    // VEHICLES functions
+    getVehicles() {
+        fetch('/api/vehicles')
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            this.setState({
+                vehicles: data
+            })
         })
     }
 
@@ -70,7 +122,7 @@ class App extends React.Component {
              <div className="customer-info">
                 <h3>Customer Info</h3>
                 <CustomerForm addNewCustomer={this.addNewCustomer} />
-                <CustomerList customers={this.state.customers} />
+                <CustomerList onDeleteCustomer={this.deleteCustomer} customers={this.state.customers} />
              </div>
              <div className="vehicle-info">
                  <h3>Vehicle Info</h3>

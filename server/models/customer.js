@@ -13,5 +13,10 @@ module.exports = {
         return knex
             .select()
             .table('customers')
+    },
+    deleteCustomer(dlN) {
+        return knex('customers')
+            .where('dlN', dlN)
+            .del()
     }
 }

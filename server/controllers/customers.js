@@ -2,7 +2,6 @@ const model = require('../models/customer');
 
 const postCustomer = (req, res, next) => {
     console.log('this is customer post', req.body)
-    console.log('this is the name ', fName, lName);
     model.createCustomer(req.body)
         .then( data => {
             console.log('this customer has been added', data);
@@ -27,7 +26,20 @@ const getCustomer = (req, res, next) => {
         });
 }
 
+const delCustomer = (req, res, next) => {
+    console.log('Customer about to be deleted ', req.params.id)
+    model.deleteCustomer(req.params.id)
+        .then(() => {
+            res.status(200).json({})
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).send(error)
+        });
+}
+
 module.exports = {
     postCustomer,
-    getCustomer
+    getCustomer,
+    delCustomer
 }
