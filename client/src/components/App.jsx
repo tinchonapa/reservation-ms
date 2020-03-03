@@ -3,8 +3,8 @@ import CustomerForm from './CustomerForm.jsx';
 import CustomerList from './CustomerList.jsx';
 import VehicleForm from './VehicleForm.jsx';
 import VehicleList from './VehicleList.jsx';
-// import ReservationForm from './ReservatoinForm.jsx';
-// import ReservationList from './ReservationList.jsx';
+import ReservationForm from './ReservationForm.jsx';
+import ReservationList from './ReservationList.jsx';
 
 class App extends React.Component {
     constructor(props){
@@ -12,6 +12,7 @@ class App extends React.Component {
         this.state ={
             customers: [],
             vehicles: [],
+            reservations: [],
             editCustBtn: false,
             editVehBtn: false
         }
@@ -21,11 +22,14 @@ class App extends React.Component {
         this.deleteCustomer = this.deleteCustomer.bind(this);
         this.getVehicles = this.getVehicles.bind(this);
         this.addNewVehicle = this.addNewVehicle.bind(this);
+        this.getReservations = this.getReservations.bind(this);
+        this.addNewReservation = this.addNewReservation.bind(this);
     }
 
     componentDidMount() {
         this.getCustomers()
         this.getVehicles()
+        this.getReservations()
     }
 
     // CUSTOMERS functions
@@ -72,7 +76,7 @@ class App extends React.Component {
         this.getCustomers();
     }
     
-    deleteCustomer(dlN) {     
+    deleteCustomer(dlN) {   
         fetch(`/api/customers/${dlN}`, {
             method: 'DELETE',
             headers: {
@@ -110,6 +114,28 @@ class App extends React.Component {
         })
     }
 
+    // RESERVATIONS functions
+    getReservations() {
+        fetch('/api/reservations')
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            this.setState({
+                reservations: data
+            })
+        })
+    }
+
+    addNewReservation(newReservationData) {
+        const id = this.state.reservations.length + 1;
+        newReservationData.id = id;
+        const newReservation = this.state.vehicles.concat(newReservationData);
+        this.setState({
+            reservations: newReservation
+        })
+    }
+
     render() {
         return (
          <div>
@@ -131,6 +157,8 @@ class App extends React.Component {
              </div>
              <div className="reservation-info">
                  <h3>Reservation Info</h3>
+                 <ReservationForm addNewReservation={this.addNewReservation} />
+                 <ReservationList reservations={this.state.reservations} />
              </div>
          </div>
         )
