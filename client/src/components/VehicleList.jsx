@@ -5,7 +5,7 @@ const VehicleList = (props) => {
     const VehicleListComponents = props.vehicles.map((element) => {
         return (
             <VehicleListItem
-            key={element.ed}
+            key={element.id}
             vId={element.vId}
             year={element.year}
             make={element.make}
