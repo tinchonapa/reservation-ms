@@ -123,7 +123,7 @@ class VehicleForm extends React.Component {
                         onChange={this.onInputChange}
                     />
                 </div>
-                <button type="button" className="btn btn-success">Add Vehicle</button>                
+                <button className="btn btn-success">Add Vehicle</button>                
             </form>
         )
     }
