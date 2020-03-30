@@ -39,6 +39,7 @@ class ReservationForm extends React.Component {
     onFormSubmit(event) {
         event.preventDefault();
         const newReservation = this.state;
+        console.log(`New reservation -> ${newReservation}`)
         this.props.addNewReservation(newReservation);
         fetch('/api/reservations', {
             method: 'POST',
@@ -108,7 +109,7 @@ class ReservationForm extends React.Component {
                         placeholder="$$$"
                     />
                 </div>
-                <button type="button" className="btn btn-success">Add Reservation</button>
+                <button className="btn btn-success">Add Reservation</button>
             </form>
         )
     }

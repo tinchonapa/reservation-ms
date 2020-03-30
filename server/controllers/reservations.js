@@ -4,6 +4,7 @@ const postReservation = (req, res, next) => {
     console.log('This is res post ', req.body)
     model.createReservation(req.body)
         .then(data => {
+            console.log(`This is rese post ${data}`)
             res.status(200).json({});
         })
         .catch(error => {
