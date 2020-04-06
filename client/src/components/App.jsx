@@ -130,10 +130,12 @@ class App extends React.Component {
     addNewReservation(newReservationData) {
         const id = this.state.reservations.length + 1;
         newReservationData.id = id;
-        const newReservation = this.state.vehicles.concat(newReservationData);
+        const newReservation = this.state.reservations.concat(newReservationData);
+        console.log('this is at exec');
         this.setState({
             reservations: newReservation
         })
+        console.log('after state exec');
     }
 
     render() {
