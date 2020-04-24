@@ -6,13 +6,14 @@ module.exports = {
             .insert({
                 fName: data.fName, lName: data.lName, dob: data.dob,
                 dlN: data.dlN, dlCountry: data.dlCountry, dlState: data.dlState,
-                dlExp: data.dlExp
+                dlExp: data.dlExp, show: true
                 }, '*')
     },
     showCustomers(data) {
         return knex
             .select()
             .table('customers')
+            .where(show, true)
     },
     deleteCustomer(dlN) {
         return knex('customers')

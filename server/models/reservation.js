@@ -6,12 +6,13 @@ module.exports = {
             .insert({
                 customer1_id: data.customer1_id, customer2_id: data.customer2_id,
                 vehicle_id: data.vehicle_id, date_in: data.date_in, 
-                date_out: data.date_out, price: data.price
+                date_out: data.date_out, price: data.price, show: true
             }, '*')
     },
     showReservation(data) {
         return knex
             .select()
             .table('reservations')
+            .where(show, true)
     }
 }
