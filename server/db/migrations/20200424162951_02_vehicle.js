@@ -8,6 +8,7 @@ exports.up = function(knex) {
         table.string('vin').notNullable();
         table.string('color').notNullable();
         table.integer('miles').notNullable();
+        table.boolean('show').notNullable();
     })
   };
   

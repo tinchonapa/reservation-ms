@@ -8,6 +8,7 @@ exports.up = function(knex) {
         table.string('dlCountry').notNullable();
         table.string('dlState').notNullable();
         table.string('dlExp').notNullable();
+        table.boolean('show').notNullable();
     })
   };
   
