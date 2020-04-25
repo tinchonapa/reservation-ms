@@ -23,9 +23,9 @@ const CustomerList = (props) => {
     })
 
     return (
-        <div className="list-group customers">
-            {CustomerListComponents}
-        </div>
+            <div className="list-group customers">
+                {CustomerListComponents}
+            </div>
     )
 }
 

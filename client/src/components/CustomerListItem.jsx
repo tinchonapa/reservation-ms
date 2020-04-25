@@ -8,15 +8,18 @@ const CustomerListItem = (props) => {
     // };
     // const edit = 'Edit';
     return (
-        <ul className="customers">
-            <li>
-                {props.fName} {props.lName} {props.dob} {props.dlN} {props.dlCountry} {props.dlState} {props.dlExp}
-                  <button type="button" className="btn btn-danger" onClick={() => {props.onDeleteCustomer(props.dlN, props.show)}}>Delete</button>
-                  <button type="button" className="btn btn-warning" onClick={() => {props.onEditCustomer()}}>Edit</button>
-            </li>
-            
-            {/* <button onClick={() => {props.onEditCustomer(props.dlN)}}>Edit</button> */}
-        </ul>
+        <tr>
+            <td>{props.fName}</td>
+            <td>{props.lName}</td>
+            <td>{props.dob}</td>
+            <td>{props.dlN}</td>
+            <td>{props.dlCountry}</td>
+            <td>{props.dlState}</td>
+            <td>{props.dlExp}</td>
+            <td><button type="button" className="btn btn-danger" onClick={() => {props.onDeleteCustomer(props.dlN, props.show)}}>Delete</button></td>
+            <td><button type="button" className="btn btn-warning" onClick={() => {props.onEditCustomer()}}>Edit</button>{/* <button onClick={() => {props.onEditCustomer(props.dlN)}}>Edit</button> */}
+            </td>
+        </tr>
     )
 }
 // <Button key={del.key}label={del.label}/>
