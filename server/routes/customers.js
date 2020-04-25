@@ -4,6 +4,6 @@ const { postCustomer, getCustomer, delCustomer } = require('../controllers/custo
 
 router.post('/', postCustomer);
 router.get('/', getCustomer);
-router.delete('/:id', delCustomer);
-
+router.put('/:id', delCustomer);
+// router.delete('/:id', purgeCustomer)
 module.exports = router;

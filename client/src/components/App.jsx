@@ -19,6 +19,7 @@ class App extends React.Component {
 
         this.getCustomers = this.getCustomers.bind(this);
         this.addNewCustomer = this.addNewCustomer.bind(this);
+        this.onClickEditCust = this.onClickEditCust.bind(this);
         this.deleteCustomer = this.deleteCustomer.bind(this);
         this.getVehicles = this.getVehicles.bind(this);
         this.addNewVehicle = this.addNewVehicle.bind(this);
@@ -32,32 +33,35 @@ class App extends React.Component {
         this.getReservations()
     }
 
-    // CUSTOMERS functions
-    getCustomers() {
-        fetch('/api/customers')
-        .then((res) => {
-            return res.json()
-        })
-        .then((data) => {
-            console.log('this is data ', data);
-            this.setState({
-                customers: data
-            })
-        })
-    }
-
+    // ------- CUSTOMERS Fn ------- //
+    // // add fn to component form for state to be in sync
     addNewCustomer(newCustomerData) {
-        const id = this.state.customers.length + 1;
+        const id = this.state.customers.length + 1; // id for front-side does not correlate to db
         newCustomerData.id = id;
         const newCustomer = this.state.customers.concat(newCustomerData);
         this.setState({
             customers: newCustomer
         })
     }
+
+    getCustomers() {
+        fetch('/api/customers')
+        .then((res) => {
+            return res.json()
+        })
+        .then((data) => {
+            // set to state the retrieved data
+            this.setState({
+                customers: data
+            })
+        })
+    }
+
     onClickEditCust(){
         this.setState(state => ({
             editCustBtn: !state.editCustBtn
         }));
+        console.log('Executed?')
     }
     editCustomer(dlN, customerData) {
         fetch(`/api/customers/${dlN}`, {
@@ -76,23 +80,38 @@ class App extends React.Component {
         this.getCustomers();
     }
     
-    deleteCustomer(dlN) {   
+    // hides customer, doesn't delete
+    deleteCustomer(dlN) {
         fetch(`/api/customers/${dlN}`, {
-            method: 'DELETE',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
+            body: JSON.stringify({
+                show: false
+            })
         })
         .then(data => {
             console.log('Success ', data);
+            this.getCustomers();
         })
         .catch(error => {
             console.error('Error: ', error);
         })
-        this.getCustomers();
+
     }
 
-    // VEHICLES functions
+    // ------- VEHICLES Fn ------- //
+    // add fn to component form for state to be in sync
+    addNewVehicle(newVehicleData) {
+        const id = this.state.vehicles.length + 1;
+        newVehicleData.id = id;
+        const newVehicle = this.state.vehicles.concat(newVehicleData);
+        this.setState({
+            vehicles: newVehicle
+        })
+    }
+
     getVehicles() {
         fetch('/api/vehicles')
         .then(res => {
@@ -105,16 +124,8 @@ class App extends React.Component {
         })
     }
 
-    addNewVehicle(newVehicleData) {
-        const id = this.state.vehicles.length + 1;
-        newVehicleData.id = id;
-        const newVehicle = this.state.vehicles.concat(newVehicleData);
-        this.setState({
-            vehicles: newVehicle
-        })
-    }
 
-    // RESERVATIONS functions
+    // ------- RESERVATIONS Fn ------- //
     getReservations() {
         fetch('/api/reservations')
         .then(res => {
@@ -138,6 +149,8 @@ class App extends React.Component {
         console.log('after state exec');
     }
 
+
+    //  ------- Render ------- //
     render() {
         return (
          <div className="container">
@@ -152,7 +165,7 @@ class App extends React.Component {
              <div className="container customer-info">
                 <h3>Customer Info</h3>
                 <CustomerForm addNewCustomer={this.addNewCustomer} />
-                <CustomerList onDeleteCustomer={this.deleteCustomer} customers={this.state.customers} />
+                <CustomerList onDeleteCustomer={this.deleteCustomer} onClickEditCustomer={this.onClickEditCust} customers={this.state.customers} />
              </div>
              <div className="container vehicle-info">
                  <h3>Vehicle Info</h3>

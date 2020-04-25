@@ -13,9 +13,19 @@ module.exports = {
         return knex
             .select()
             .table('customers')
-            .where(show, true)
+            .where({
+                show: true
+            })
     },
-    deleteCustomer(dlN) {
+    deleteCustomer(dlN, showValue) {
+        return knex('customers')
+            .where('dlN', dlN)
+            .update({
+                show: showValue
+            },
+            ['dlN', 'fName', 'lName', 'show'])
+    },
+    purgeCustomer(dlN) {
         return knex('customers')
             .where('dlN', dlN)
             .del()

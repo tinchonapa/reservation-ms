@@ -25,9 +25,10 @@ const getCustomer = (req, res, next) => {
 }
 
 const delCustomer = (req, res, next) => {
-    console.log('Customer about to be deleted ', req.params.id)
-    model.deleteCustomer(req.params.id)
-        .then(() => {
+    console.log('Customer about to be deleted ', req.params.id, ' show is ', req.body)
+    model.deleteCustomer(req.params.id, req.body.show)
+        .then((data) => {
+            console.log('this customer has been hidden from user ', data);
             res.status(200).json({})
         })
         .catch(error => {

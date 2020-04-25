@@ -2,7 +2,9 @@ import React from 'react';
 import CustomerListItem from './CustomerListItem.jsx';
 
 const CustomerList = (props) => {
+    console.log('At customerList ', props.customers)
     var deleteCustomer = props.onDeleteCustomer;
+    var editCustomer = props.onClickEditCustomer;
     const CustomerListComponents = props.customers.map((element) => {
         return (
             <CustomerListItem
@@ -15,6 +17,7 @@ const CustomerList = (props) => {
             dlState={element.dlState}
             dlExp={element.dlExp}
             onDeleteCustomer={deleteCustomer}
+            onClickEditCustomer={editCustomer}
             />
         )
     })

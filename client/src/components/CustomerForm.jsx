@@ -10,7 +10,8 @@ class CustomerForm extends React.Component {
             dlN: '',
             dlCountry: '',
             dlState: '',
-            dlExp: ''
+            dlExp: '',
+            show: true
         }
         this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -110,7 +111,7 @@ class CustomerForm extends React.Component {
                         onChange={this.onInputChange}
                     />
                 </div>
-                <button className="btn btn-success">Add Customer</button>
+                <button className="btn btn-success">Submit</button>
             </form>
         )
     }
