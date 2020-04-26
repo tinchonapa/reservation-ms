@@ -40,8 +40,8 @@ class CustomerForm extends React.Component {
 
     onFormSubmit(event) {
         event.preventDefault();
-        const newCustomer = this.state;
-        this.props.addNewCustomer(newCustomer);
+        const newCustomer = this.state; // set to equal current state
+        this.props.addNewCustomer(newCustomer); // current state in Form it's sent to App through addNewCustomer fn
         fetch('/api/customers', {
             method: 'POST',
             headers: {
