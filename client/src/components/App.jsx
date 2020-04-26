@@ -6,6 +6,7 @@ import VehicleList from './VehicleList.jsx';
 import ReservationForm from './ReservationForm.jsx';
 import ReservationList from './ReservationList.jsx';
 
+
 class App extends React.Component {
     constructor(props){
         super(props);
@@ -165,7 +166,16 @@ class App extends React.Component {
              <div className="container customer-info">
                 <h3>Customer Info</h3>
                 <CustomerForm addNewCustomer={this.addNewCustomer} />
-                <CustomerList onDeleteCustomer={this.deleteCustomer} onClickEditCustomer={this.onClickEditCust} customers={this.state.customers} />
+                <table id="customer">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>First Name</th><th>Last Name</th><th>DOB</th>
+                            <th>Driver's License #</th><th>Driver's License Exp</th>
+                            <th>Counthy</th><th>State</th><th>Edit</th><th>Delete</th>
+                        </tr>
+                    </thead>
+                    <CustomerList onDeleteCustomer={this.deleteCustomer} onClickEditCustomer={this.onClickEditCust} customers={this.state.customers} />
+                </table>
              </div>
              <div className="container vehicle-info">
                  <h3>Vehicle Info</h3>
