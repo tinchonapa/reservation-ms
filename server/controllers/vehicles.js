@@ -22,7 +22,20 @@ const getVehicle = (req, res, next) => {
         });
 }
 
+const hideVehicle = (req, res, next) => {
+    model.hideVehicle(req.params.id, req.body.show)
+        .then(data => {
+            console.log('this vehicle has been hidden from user ', data);
+            res.status(200).json(data)
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).send(error)
+        });
+}
+
 module.exports = {
     postVehicle,
-    getVehicle
+    getVehicle,
+    hideVehicle
 }

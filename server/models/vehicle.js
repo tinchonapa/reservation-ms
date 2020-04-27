@@ -12,6 +12,16 @@ module.exports = {
         return knex
             .select()
             .table('vehicles')
-            .where(show, true)
-    }
+            .where({
+                show: true
+            })
+    },
+    hideVehicle(vId, showValue) {
+        return knex('vehicles')
+            .where('vId', vId)
+            .update({
+                show: showValue
+            },
+            ['vId', 'vin', 'make', 'model']);
+    },
 }   
