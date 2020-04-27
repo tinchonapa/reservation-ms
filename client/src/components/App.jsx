@@ -18,12 +18,13 @@ class App extends React.Component {
             editVehBtn: false
         }
 
-        this.getCustomers = this.getCustomers.bind(this);
         this.addNewCustomer = this.addNewCustomer.bind(this);
+        this.getCustomers = this.getCustomers.bind(this);
         this.onClickEditCust = this.onClickEditCust.bind(this);
-        this.deleteCustomer = this.deleteCustomer.bind(this);
-        this.getVehicles = this.getVehicles.bind(this);
+        this.hideCustomer = this.hideCustomer.bind(this);
         this.addNewVehicle = this.addNewVehicle.bind(this);
+        this.getVehicles = this.getVehicles.bind(this);
+        this.hideVehicle = this.hideVehicle.bind(this);
         this.getReservations = this.getReservations.bind(this);
         this.addNewReservation = this.addNewReservation.bind(this);
     }
@@ -82,7 +83,7 @@ class App extends React.Component {
     }
     
     // hides customer, doesn't delete
-    deleteCustomer(dlN) {
+    hideCustomer(dlN) {
         fetch(`/api/customers/${dlN}`, {
             method: 'PUT',
             headers: {
@@ -125,8 +126,40 @@ class App extends React.Component {
         })
     }
 
+    // hides vehicle, doesn't delete
+    hideVehicle(vId) {
+        fetch(`/api/vehicles/${vId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                show: false
+            })
+        })
+        .then(data => {
+            console.log('Success ', data);
+            this.getVehicles();
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        })
+
+    }
+
 
     // ------- RESERVATIONS Fn ------- //
+    addNewReservation(newReservationData) {
+        const id = this.state.reservations.length + 1;
+        newReservationData.id = id;
+        const newReservation = this.state.reservations.concat(newReservationData);
+        console.log('this is at exec');
+        this.setState({
+            reservations: newReservation
+        })
+        console.log('after state exec');
+    }
+    
     getReservations() {
         fetch('/api/reservations')
         .then(res => {
@@ -139,16 +172,6 @@ class App extends React.Component {
         })
     }
 
-    addNewReservation(newReservationData) {
-        const id = this.state.reservations.length + 1;
-        newReservationData.id = id;
-        const newReservation = this.state.reservations.concat(newReservationData);
-        console.log('this is at exec');
-        this.setState({
-            reservations: newReservation
-        })
-        console.log('after state exec');
-    }
 
 
     //  ------- Render ------- //
@@ -163,6 +186,7 @@ class App extends React.Component {
                     <button type="button" className="btn btn-primary">New Reservation</button>
                 </div>
              </div>
+             {/* --- CUSTOMER --- */}
              <div className="container customer-info">
                 <h3>Customer Info</h3>
                 <CustomerForm addNewCustomer={this.addNewCustomer} />
@@ -174,14 +198,25 @@ class App extends React.Component {
                             <th>Counthy</th><th>State</th><th>Edit</th><th>Delete</th>
                         </tr>
                     </thead>
-                    <CustomerList onDeleteCustomer={this.deleteCustomer} onClickEditCustomer={this.onClickEditCust} customers={this.state.customers} />
+                    <CustomerList onHideCustomer={this.hideCustomer} onClickEditCustomer={this.onClickEditCust} customers={this.state.customers} />
                 </table>
              </div>
+             {/* --- VEHICLE --- */}
              <div className="container vehicle-info">
                  <h3>Vehicle Info</h3>
                  <VehicleForm addNewVehicle={this.addNewVehicle} />
-                 <VehicleList vehicles={this.state.vehicles} />
+                 <table id="vehicle">
+                     <thead>
+                        <tr>
+                            <th>V_ID</th><th>Year</th><th>Make</th><th>Model</th>
+                            <th>VIN Number</th><th>Color</th><th>Miles</th>
+                            <th>Edit</th><th>Delete</th>
+                        </tr>
+                     </thead>
+                 <VehicleList onHideVehicle={this.hideVehicle} vehicles={this.state.vehicles} />
+                 </table>
              </div>
+             {/* --- RESERVATION --- */}
              <div className="container reservation-info">
                  <h3>Reservation Info</h3>
                  <ReservationForm addNewReservation={this.addNewReservation} />

@@ -2,6 +2,7 @@ import React from 'react';
 import VehicleListItem from './VehicleListItem.jsx';
 
 const VehicleList = (props) => {
+    var hideVehicle = props.onHideVehicle;
     const VehicleListComponents = props.vehicles.map((element) => {
         return (
             <VehicleListItem
@@ -13,14 +14,15 @@ const VehicleList = (props) => {
             vin={element.vin}
             color={element.color}
             miles={element.miles}
+            onHideVehicle={hideVehicle}
             />
         )
     })
 
     return (
-        <div className="list-group vehicles">
+        <tbody>
             {VehicleListComponents}
-        </div>
+        </tbody>
     )
 }
 
