@@ -23,7 +23,21 @@ const getReservation = (req, res, next) => {
         });
 }
 
+const hideReservation = (req, res, next) => {
+    model.hideReservation(req.params.id, req.body.show)
+        .then((data) => {
+            console.log('this Reservation has been hidden from user ', data);
+            res.status(200).json({})
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).send(error)
+        });
+}
+
+
 module.exports = {
     postReservation,
-    getReservation
+    getReservation,
+    hideReservation
 }
