@@ -25,8 +25,9 @@ class App extends React.Component {
         this.addNewVehicle = this.addNewVehicle.bind(this);
         this.getVehicles = this.getVehicles.bind(this);
         this.hideVehicle = this.hideVehicle.bind(this);
-        this.getReservations = this.getReservations.bind(this);
         this.addNewReservation = this.addNewReservation.bind(this);
+        this.getReservations = this.getReservations.bind(this);
+        this.hideReservation = this.hideReservation.bind(this);
     }
 
     componentDidMount() {
@@ -172,6 +173,27 @@ class App extends React.Component {
         })
     }
 
+    // hides reservation, doesn't delete
+    hideReservation(id) {
+        fetch(`/api/reservations/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                show: false
+            })
+        })
+        .then(data => {
+            console.log('Success ', data);
+            this.getReservations();
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        })
+
+    }
+
 
 
     //  ------- Render ------- //
@@ -218,9 +240,17 @@ class App extends React.Component {
              </div>
              {/* --- RESERVATION --- */}
              <div className="container reservation-info">
-                 <h3>Reservation Info</h3>
-                 <ReservationForm addNewReservation={this.addNewReservation} />
-                 <ReservationList reservations={this.state.reservations} />
+                <h3>Reservation Info</h3>
+                <ReservationForm addNewReservation={this.addNewReservation} />
+                <table id="reservation">
+                    <thead>
+                        <tr>
+                            <th>Rental ID</th><th colSpan="3">Primary Driver</th><th colSpan="3">Secondary Driver</th>
+                            <th>Vehicle ID</th><th>Date In</th><th>Date Out</th><th>Price</th><th>Edit</th><th>Delete</th>
+                        </tr>
+                    </thead>
+                    <ReservationList onHideReservation={this.hideReservation} reservations={this.state.reservations} />
+                </table>
              </div>
          </div>
         )
