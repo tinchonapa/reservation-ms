@@ -4,13 +4,13 @@ class CustomerForm extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            fName: '',
-            lName: '',
+            first_name: '',
+            last_name: '',
             dob: '',
-            dlN: '',
-            dlCountry: '',
-            dlState: '',
-            dlExp: '',
+            dl_number: '',
+            dl_country: '',
+            dl_state: '',
+            dl_exp: '',
             show: true
         }
         this.onInputChange = this.onInputChange.bind(this);
@@ -28,13 +28,13 @@ class CustomerForm extends React.Component {
 
     clearForm() {
         this.setState({
-            fName: '',
-            lName: '',
+            first_name: '',
+            last_name: '',
             dob: '',
-            dlN: '',
-            dlCountry: '',
-            dlState: '',
-            dlExp: ''
+            dl_number: '',
+            dl_country: '',
+            dl_state: '',
+            dl_exp: ''
         });
     }
 
@@ -63,15 +63,15 @@ class CustomerForm extends React.Component {
             <form onSubmit={this.onFormSubmit}>
                 <div className="form-group">
                     <label>First Name: </label>
-                    <input name="fName"
-                        value={this.state.fName}
+                    <input name="first_name"
+                        value={this.state.first_name}
                         onChange={this.onInputChange}
                     />
                 </div>
                 <div className="form-group">
                     <label>Last Name: </label>
-                    <input name="lName"
-                        value={this.state.lName}
+                    <input name="last_name"
+                        value={this.state.last_name}
                         onChange={this.onInputChange}
                     />
                     
@@ -85,29 +85,29 @@ class CustomerForm extends React.Component {
                 </div>
                 <div className="form-group">
                     <label>Drivers License#: </label>
-                    <input name="dlN"
-                        value={this.state.dlN}
+                    <input name="dl_number"
+                        value={this.state.dl_number}
                         onChange={this.onInputChange}
                     />
                 </div>
                 <div className="form-group"> 
                     <label>DL Country:</label>
-                    <input name="dlCountry"
-                        value={this.state.dlCountry}
+                    <input name="dl_country"
+                        value={this.state.dl_country}
                         onChange={this.onInputChange}
                     />
                 </div>
                 <div className="form-group">
                     <label>DL State: </label>
-                    <input name="dlState"
-                        value={this.state.dlState}
+                    <input name="dl_state"
+                        value={this.state.dl_state}
                         onChange={this.onInputChange}
                     />
                 </div>
                 <div className="form-group">
                     <label>DL Expiration Date: </label>
-                    <input name="dlExp"
-                        value={this.state.dlExp}
+                    <input name="dl_exp"
+                        value={this.state.dl_exp}
                         onChange={this.onInputChange}
                     />
                 </div>

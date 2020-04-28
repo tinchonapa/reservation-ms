@@ -3,7 +3,7 @@ import CustomerListItem from './CustomerListItem.jsx';
 
 const CustomerList = (props) => {
     console.log('At customerList ', props.customers)
-    var deleteCustomer = props.onDeleteCustomer;
+    var hideCustomer = props.onHideCustomer;
     var editCustomer = props.onClickEditCustomer;
     // var headers = Object.keys(props.customers[0]);
     // headers.splice(headers.length-1, 'Delete', 'Edit');
@@ -12,15 +12,15 @@ const CustomerList = (props) => {
             <CustomerListItem
             key={element.id}
             id={element.id}
-            fName={element.fName}
-            lName={element.lName}
+            first_name={element.first_name}
+            last_name={element.last_name}
             dob={element.dob}
-            dlN={element.dlN}
-            dlExp={element.dlExp}
-            dlCountry={element.dlCountry}
-            dlState={element.dlState}
+            dl_number={element.dl_number}
+            dl_exp={element.dl_exp}
+            dl_country={element.dl_country}
+            dl_state={element.dl_state}
             onClickEditCustomer={editCustomer}
-            onDeleteCustomer={deleteCustomer}
+            onHideCustomer={hideCustomer}
             />
         )
     })
