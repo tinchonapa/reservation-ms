@@ -29,5 +29,15 @@ module.exports = {
         return knex('customers')
             .where('dl_number', dl_number)
             .del()
+    },
+    editCustomer(id, data) {
+        return knex('customers')
+        .where('dl_number', id)
+        .update({
+            first_name: data.first_name, last_name: data.last_name, dob: data.dob,
+            dl_number: data.dl_number, dl_country: data.dl_country, 
+            dl_state: data.dl_state, dl_exp: data.dl_exp, show: data.show
+        },
+        ['dl_number', 'first_name', 'last_name', 'show']);
     }
 }

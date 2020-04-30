@@ -37,8 +37,22 @@ const hideCustomer = (req, res, next) => {
         });
 }
 
+const editCustomer = (req, res, next) => {
+    console.log('Customer about to be modified ', req.params.id, ' show is ', req.body)
+    model.editCustomer(req.params.id, req.body)
+        .then((data) => {
+            console.log('Customer succesfully modified ', data);
+            res.status(200).json({})
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).send(error)
+        });
+}
+
 module.exports = {
     postCustomer,
     getCustomer,
-    hideCustomer
+    hideCustomer,
+    editCustomer
 }
