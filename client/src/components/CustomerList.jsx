@@ -5,6 +5,8 @@ const CustomerList = (props) => {
     console.log('At customerList ', props.customers)
     var hideCustomer = props.onHideCustomer;
     var editCustomer = props.onClickEditCustomer;
+    // console.log('edit  ', editCustomer);
+    // console.log('hide  ', hideCustomer);
     // var headers = Object.keys(props.customers[0]);
     // headers.splice(headers.length-1, 'Delete', 'Edit');
     const CustomerListComponents = props.customers.map((element) => {

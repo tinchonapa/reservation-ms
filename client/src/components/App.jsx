@@ -12,6 +12,7 @@ class App extends React.Component {
         super(props);
         this.state ={
             customers: [],
+            editCustomer: {},
             vehicles: [],
             reservations: [],
             editCustBtn: false,
@@ -21,6 +22,7 @@ class App extends React.Component {
         this.addNewCustomer = this.addNewCustomer.bind(this);
         this.getCustomers = this.getCustomers.bind(this);
         this.onClickEditCust = this.onClickEditCust.bind(this);
+        this.editCustomer = this.editCustomer.bind(this);
         this.hideCustomer = this.hideCustomer.bind(this);
         this.addNewVehicle = this.addNewVehicle.bind(this);
         this.getVehicles = this.getVehicles.bind(this);
@@ -60,12 +62,30 @@ class App extends React.Component {
         })
     }
 
-    onClickEditCust(){
-        this.setState(state => ({
-            editCustBtn: !state.editCustBtn
-        }));
-        console.log('Executed?')
+    onClickEditCust(data, customer){
+        this.setState({
+            editCustBtn: data,
+            editCustomer: customer
+        });
+        console.log('Executed?', customer)
     }
+
+    editCustomer(customerData) {
+        var result = []; // variable to store customers state and then modify it, before staging changes
+        console.log('@ editCusotmer state.customers ', this.state.customers);
+        console.log('@ editCusotmer customerData ', customerData);
+        const index = this.state.customers.map((el) => { return el.id }).indexOf(customerData.id);
+        result = result.concat(this.state.customers);
+        result.splice(index,1,customerData);
+        this.setState({
+            customers: result, 
+            editCustBtn: false
+        });
+        console.log('Current customers ', this.state.customers);
+    }
+    
+
+    /*
     editCustomer(dlN, customerData) {
         fetch(`/api/customers/${dlN}`, {
             method: 'PUT',
@@ -81,7 +101,7 @@ class App extends React.Component {
             console.error('Error: ', error);
         })
         this.getCustomers();
-    }
+    }*/
     
     // hides customer, doesn't delete
     hideCustomer(dlN) {
@@ -198,6 +218,24 @@ class App extends React.Component {
 
     //  ------- Render ------- //
     render() {
+        let customerForm;
+        if ( this.state.editCustBtn ) {
+            console.log('Currently edit = ', this.state.editCustBtn);
+            customerForm = <CustomerForm 
+                            addNewCustomer={this.addNewCustomer}
+                            editCustomer={this.editCustomer} 
+                            customer={this.state.editCustomer} 
+                            edit={this.state.editCustBtn} 
+                        /> ;
+        } else {
+            console.log('Currently edit = ', this.state.editCustBtn);
+            customerForm = <CustomerForm 
+                            addNewCustomer={this.addNewCustomer}
+                            editCustomer={this.editCustomer} 
+                            customer={this.state.editCustomer} 
+                            edit={this.state.editCustBtn} 
+                            /> ;
+        }
         return (
          <div className="container">
              <div className="jumbotron header">
@@ -211,7 +249,12 @@ class App extends React.Component {
              {/* --- CUSTOMER --- */}
              <div className="container customer-info">
                 <h3>Customer Info</h3>
-                <CustomerForm addNewCustomer={this.addNewCustomer} />
+                { customerForm }
+                {/* <CustomerForm editCustomer={this.editCustomer} 
+                            customer={this.state.editCustomer} 
+                            edit={this.state.editCustBtn} 
+                        /> */}
+                {/* <CustomerForm addNewCustomer={this.addNewCustomer} editCustomer={this.editCustomer} customer={this.state.editCustomer} edit={this.state.editCustBtn} /> */}
                 <table id="customer">
                     <thead>
                         <tr>

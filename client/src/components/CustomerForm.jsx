@@ -13,10 +13,22 @@ class CustomerForm extends React.Component {
             dl_exp: '',
             show: true
         }
+
+        if ( this.props.edit ) {
+            console.log('This is customer ', this.props.customer);
+            this.setState(this.props.customer)
+        } else {
+            console.log(this.props.customer);
+        }
+
         this.onInputChange = this.onInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.editState = this.editState.bind(this);
+        this.onEditCustomer = this.onEditCustomer.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.clearForm = this.clearForm.bind(this);
     }
+
 
     onInputChange(event) {
         const key = event.target.name;
@@ -34,8 +46,45 @@ class CustomerForm extends React.Component {
             dl_number: '',
             dl_country: '',
             dl_state: '',
-            dl_exp: ''
+            dl_exp: '',
+            show: true
         });
+    }
+
+    handleSubmit(event){
+        event.preventDefault();
+        console.log('@ handleSubmit ', this.props.edit);
+        this.props.edit ? this.onEditCustomer() : this.onFormSubmit();
+
+    }
+
+    editState(){
+        console.log('editState run');
+        this.setState(this.props.customer);
+    }
+
+    onEditCustomer(){
+        const customerData = this.state;
+        const dl_number = this.state.dl_number;
+        console.log('onEditCustomer ', this.props.customer.id);
+        customerData.id = this.props.customer.id;
+        console.log('onEditCustomer ', customerData);
+        this.props.editCustomer(customerData);
+        fetch(`/api/customers/edit/${dl_number}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(customerData)
+        })
+        .then(data => {
+            console.log('Success ', data);
+            // this.setState({})
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        });
+        this.clearForm();
     }
 
     onFormSubmit(event) {
@@ -59,8 +108,17 @@ class CustomerForm extends React.Component {
     }
 
     render() {
+        
+        if ( this.props.edit ) {
+            // this.editState();
+            var { first_name, last_name, dob, dl_number, dl_country, dl_state, dl_exp } = this.props.customer;
+            console.log('Edit true ', first_name, last_name, dob, dl_number, dl_country, dl_state, dl_exp);
+        } else {
+            var { first_name, last_name, dob, dl_number, dl_country, dl_state, dl_exp } = this.state;
+            console.log('Edit false ', first_name, last_name, dob, dl_number, dl_country, dl_state, dl_exp);
+        }
         return(
-            <form onSubmit={this.onFormSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label>First Name: </label>
                     <input name="first_name"
@@ -112,6 +170,7 @@ class CustomerForm extends React.Component {
                     />
                 </div>
                 <button className="btn btn-success">Submit</button>
+                {/* { submit } */}
             </form>
         )
     }
