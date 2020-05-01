@@ -47,6 +47,16 @@ module.exports = {
             },
             ['id', 'customer1_id', 'customer2_id', 'vehicle_id', 'date_in', 'date_out'])
     },
+    editReservation(id, data) {
+        return('reservations')
+        .where('id', id)
+        .update({
+            customer1_id: data.customer1_id, customer2_id: data.customer2_id,
+            vehicle_id: data.vehicle_id, date_in: data.date_in, 
+            date_out: data.date_out, price: data.price, show: data.show
+        },
+        ['id', 'date_in', 'date_out', 'vehicle_id'])
+    },
     purgeReservation(id) {
         return knex('reservations')
             .where('id', id)
