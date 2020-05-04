@@ -34,8 +34,22 @@ const hideVehicle = (req, res, next) => {
         });
 }
 
+const editVehicle = (req, res, next) => {
+    console.log('Customer about to be modified ', req.params.id, ' show is ', req.body)
+    model.editVehicle(req.params.id, req.body)
+        .then((data) => {
+            console.log('Customer succesfully modified ', data);
+            res.status(200).json({})
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).send(error)
+        });
+}
+
 module.exports = {
     postVehicle,
     getVehicle,
-    hideVehicle
+    hideVehicle,
+    editVehicle
 }
