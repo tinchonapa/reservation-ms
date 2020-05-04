@@ -15,8 +15,10 @@ class App extends React.Component {
             editCustomer: {},
             vehicles: [],
             reservations: [],
+            editReservation: {},
             editCustBtn: false,
-            editVehBtn: false
+            editVehBtn: false,
+            editResBtn: false
         }
 
         this.addNewCustomer = this.addNewCustomer.bind(this);
@@ -29,6 +31,8 @@ class App extends React.Component {
         this.hideVehicle = this.hideVehicle.bind(this);
         this.addNewReservation = this.addNewReservation.bind(this);
         this.getReservations = this.getReservations.bind(this);
+        this.onClickEditRes = this.onClickEditRes.bind(this);
+        this.editReservation = this.editReservation.bind(this);
         this.hideReservation = this.hideReservation.bind(this);
     }
 
@@ -67,7 +71,7 @@ class App extends React.Component {
             editCustBtn: data,
             editCustomer: customer
         });
-        console.log('Executed?', customer)
+        console.log('Customer edit executed?', customer)
     }
 
     editCustomer(customerData) {
@@ -81,7 +85,8 @@ class App extends React.Component {
             customers: result, 
             editCustBtn: false
         });
-        console.log('Current customers ', this.state.customers);
+        // console.log('Current customers ', this.state.customers);
+        // this.getCustomers();
     }
     
 
@@ -193,6 +198,44 @@ class App extends React.Component {
         })
     }
 
+
+    onClickEditRes(data, reservation){
+        this.setState({
+            editResBtn: data,
+            editReservation: reservation
+        });
+        console.log('Executed?', reservation)
+    }
+
+    editReservation(reservationData) {
+        var result = []; // variable to store reservation state and then modify it, before staging changes
+        console.log('@ editReservation state.reservations ', this.state.reservations);
+        console.log('@ editReservation reservationData ', reservationData);
+        var id = reservationData.id;
+        const index = this.state.reservations.map((el) => { return el.id }).indexOf(reservationData.id);
+        result = result.concat(this.state.reservations);
+        result.splice(index,1,reservationData);
+        this.setState({
+            reservations: result, 
+            editResBtn: false
+        });
+        fetch(`/api/reservations/edit/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reservationData)
+        })
+        .then(data => {
+            console.log('Success ', data);
+            this.getReservations();
+            // if this props.editreservation(reservationData) is moved here?
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        });
+    }
+
     // hides reservation, doesn't delete
     hideReservation(id) {
         fetch(`/api/reservations/${id}`, {
@@ -218,24 +261,6 @@ class App extends React.Component {
 
     //  ------- Render ------- //
     render() {
-        let customerForm;
-        if ( this.state.editCustBtn ) {
-            console.log('Currently edit = ', this.state.editCustBtn);
-            customerForm = <CustomerForm 
-                            addNewCustomer={this.addNewCustomer}
-                            editCustomer={this.editCustomer} 
-                            customer={this.state.editCustomer} 
-                            edit={this.state.editCustBtn} 
-                        /> ;
-        } else {
-            console.log('Currently edit = ', this.state.editCustBtn);
-            customerForm = <CustomerForm 
-                            addNewCustomer={this.addNewCustomer}
-                            editCustomer={this.editCustomer} 
-                            customer={this.state.editCustomer} 
-                            edit={this.state.editCustBtn} 
-                            /> ;
-        }
         return (
          <div className="container">
              <div className="jumbotron header">
@@ -249,12 +274,12 @@ class App extends React.Component {
              {/* --- CUSTOMER --- */}
              <div className="container customer-info">
                 <h3>Customer Info</h3>
-                { customerForm }
-                {/* <CustomerForm editCustomer={this.editCustomer} 
-                            customer={this.state.editCustomer} 
-                            edit={this.state.editCustBtn} 
-                        /> */}
-                {/* <CustomerForm addNewCustomer={this.addNewCustomer} editCustomer={this.editCustomer} customer={this.state.editCustomer} edit={this.state.editCustBtn} /> */}
+                <CustomerForm 
+                    addNewCustomer={this.addNewCustomer}
+                    editCustomer={this.editCustomer} 
+                    customer={this.state.editCustomer} 
+                    edit={this.state.editCustBtn} 
+                />
                 <table id="customer">
                     <thead>
                         <tr>
@@ -263,7 +288,11 @@ class App extends React.Component {
                             <th>Counthy</th><th>State</th><th>Edit</th><th>Delete</th>
                         </tr>
                     </thead>
-                    <CustomerList onHideCustomer={this.hideCustomer} onClickEditCustomer={this.onClickEditCust} customers={this.state.customers} />
+                    <CustomerList 
+                        onHideCustomer={this.hideCustomer} 
+                        onClickEditCustomer={this.onClickEditCust} 
+                        customers={this.state.customers} 
+                    />
                 </table>
              </div>
              {/* --- VEHICLE --- */}
@@ -284,7 +313,12 @@ class App extends React.Component {
              {/* --- RESERVATION --- */}
              <div className="container reservation-info">
                 <h3>Reservation Info</h3>
-                <ReservationForm addNewReservation={this.addNewReservation} />
+                <ReservationForm 
+                    addNewReservation={this.addNewReservation}
+                    editReservation={this.editReservation}
+                    reservation={this.state.editReservation}
+                    edit={this.state.editResBtn}
+                />
                 <table id="reservation">
                     <thead>
                         <tr>
@@ -292,7 +326,10 @@ class App extends React.Component {
                             <th>Vehicle ID</th><th>Date In</th><th>Date Out</th><th>Price</th><th>Edit</th><th>Delete</th>
                         </tr>
                     </thead>
-                    <ReservationList onHideReservation={this.hideReservation} reservations={this.state.reservations} />
+                    <ReservationList 
+                        onHideReservation={this.hideReservation}
+                        onClickEditReservation={this.onClickEditRes}
+                        reservations={this.state.reservations} />
                 </table>
              </div>
          </div>

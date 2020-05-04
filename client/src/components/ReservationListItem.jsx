@@ -1,6 +1,16 @@
 import React from 'react';
 
 const ReservationListItem = (props) => {
+    var reservation = {
+        id: props.id,
+        customer1_id: props.customer1_id,
+        customer2_id: props.customer2_id,
+        vehicle_id: props.vehicle_id,
+        date_in: props.date_in,
+        date_out: props.date_out,
+        price: props.price
+    };
+
     return (
         <tr>
             <td>{props.id}</td>
@@ -14,7 +24,7 @@ const ReservationListItem = (props) => {
             <td>{props.date_in}</td>
             <td>{props.date_out}</td>
             <td>{props.price}</td>
-            <td><button type="button" className="btn btn-warning" onClick={() => {props.onEditReservation()}}>Edit</button></td>
+            <td><button type="button" className="btn btn-warning" onClick={() => {props.onClickEditReservation(true, reservation)}}>Edit</button></td>
             <td><button type="button" className="btn btn-danger" onClick={() => {props.onHideReservation(props.id, props.show)}}>Delete</button></td>
         </tr>
     )

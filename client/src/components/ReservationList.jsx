@@ -3,6 +3,7 @@ import ReservationListItem from './ReservationListItem.jsx';
 
 const ReservationList = (props) => {
     console.log('Reservation props ', props.reservations)
+    var editReservation = props.onClickEditReservation;
     var hideReservation = props.onHideReservation;
     const ReservationListComponents = props.reservations.map((element) => {
         return(
@@ -19,6 +20,7 @@ const ReservationList = (props) => {
                 date_in={element.date_in}
                 date_out={element.date_out}
                 price={element.price}
+                onClickEditReservation={editReservation}
                 onHideReservation={hideReservation}
             />
         )

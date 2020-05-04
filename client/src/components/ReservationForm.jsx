@@ -13,6 +13,8 @@ class ReservationForm extends React.Component {
         }
 
         this.onInputChange = this.onInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onEditReservation = this.onEditReservation.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.clearForm = this.clearForm.bind(this);
     }
@@ -36,7 +38,24 @@ class ReservationForm extends React.Component {
         });
     }
 
-    onFormSubmit(event) {
+    handleSubmit(event){
+        event.preventDefault();
+        console.log('@ handleSubmit ', this.props.edit);
+        this.props.edit ? this.onEditReservation() : this.onFormSubmit();
+
+    }
+
+    onEditReservation(){
+        const reservationData = this.state;
+        const id = this.props.reservation.id;
+        console.log('onEditreservation ', this.props.reservation.id);
+        reservationData.id = this.props.reservation.id;
+        console.log('onEditreservation ', reservationData);
+        this.props.editReservation(reservationData);
+    }
+        
+
+    onFormSubmit() {
         event.preventDefault();
         const newReservation = this.state;
         console.log(`New reservation -> ${newReservation}`)
@@ -59,7 +78,7 @@ class ReservationForm extends React.Component {
 
     render() {
         return(
-            <form onSubmit={this.onFormSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label>Driver 1: </label>
                     <input name='customer1_id'
