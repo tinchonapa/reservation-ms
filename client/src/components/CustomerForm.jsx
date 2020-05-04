@@ -79,7 +79,7 @@ class CustomerForm extends React.Component {
         })
         .then(data => {
             console.log('Success ', data);
-            // this.setState({})
+            // if this props.editCustomer(customerData) is moved here?
         })
         .catch(error => {
             console.error('Error: ', error);
@@ -87,8 +87,8 @@ class CustomerForm extends React.Component {
         this.clearForm();
     }
 
-    onFormSubmit(event) {
-        event.preventDefault();
+    onFormSubmit() {
+        // event.preventDefault();
         const newCustomer = this.state; // set to equal current state
         this.props.addNewCustomer(newCustomer); // current state in Form it's sent to App through addNewCustomer fn
         fetch('/api/customers', {
@@ -124,6 +124,7 @@ class CustomerForm extends React.Component {
                     <input name="first_name"
                         value={this.state.first_name}
                         onChange={this.onInputChange}
+                        placeholder="First Name"
                     />
                 </div>
                 <div className="form-group">
@@ -131,6 +132,7 @@ class CustomerForm extends React.Component {
                     <input name="last_name"
                         value={this.state.last_name}
                         onChange={this.onInputChange}
+                        placeholder="Last Name"
                     />
                     
                 </div>
@@ -139,6 +141,7 @@ class CustomerForm extends React.Component {
                     <input name="dob"
                         value={this.state.dob}
                         onChange={this.onInputChange}
+                        placeholder="MM/DD/YYYY"
                     />
                 </div>
                 <div className="form-group">
@@ -146,6 +149,7 @@ class CustomerForm extends React.Component {
                     <input name="dl_number"
                         value={this.state.dl_number}
                         onChange={this.onInputChange}
+                        placeholder="Driver's License Number"
                     />
                 </div>
                 <div className="form-group"> 
@@ -153,6 +157,7 @@ class CustomerForm extends React.Component {
                     <input name="dl_country"
                         value={this.state.dl_country}
                         onChange={this.onInputChange}
+                        placeholder="Driver's License Country"
                     />
                 </div>
                 <div className="form-group">
@@ -160,6 +165,7 @@ class CustomerForm extends React.Component {
                     <input name="dl_state"
                         value={this.state.dl_state}
                         onChange={this.onInputChange}
+                        placeholder="Driver's License State"
                     />
                 </div>
                 <div className="form-group">
@@ -167,6 +173,7 @@ class CustomerForm extends React.Component {
                     <input name="dl_exp"
                         value={this.state.dl_exp}
                         onChange={this.onInputChange}
+                        placeholder="MM/DD/YYYY"
                     />
                 </div>
                 <button className="btn btn-success">Submit</button>

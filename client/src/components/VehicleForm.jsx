@@ -86,6 +86,7 @@ class VehicleForm extends React.Component {
                     <input name="year"
                         value={this.state.year}
                         onChange={this.onInputChange}
+                        placeholder="YYYY"
                     />
                 </div>
                 <div className="form-group">
@@ -93,6 +94,7 @@ class VehicleForm extends React.Component {
                     <input name="make"
                         value={this.state.make}
                         onChange={this.onInputChange}
+                        placeholder="Make"
                     />
                 </div>
                 <div className="form-group">
@@ -100,6 +102,7 @@ class VehicleForm extends React.Component {
                     <input name="model"
                         value={this.state.model}
                         onChange={this.onInputChange}
+                        placeholder="Model"
                     />
                 </div>
                 <div className="form-group">
@@ -107,6 +110,7 @@ class VehicleForm extends React.Component {
                     <input name="vin"
                         value={this.state.vin}
                         onChange={this.onInputChange}
+                        placeholder="16 Char VIN Number"
                     />
                 </div>
                 <div className="form-group">
@@ -114,6 +118,7 @@ class VehicleForm extends React.Component {
                     <input name="color"
                         value={this.state.color}
                         onChange={this.onInputChange}
+                        placeholder="Color"
                     />
                 </div>
                 <div className="form-group">
@@ -121,6 +126,7 @@ class VehicleForm extends React.Component {
                     <input name="miles"
                         value={this.state.miles}
                         onChange={this.onInputChange}
+                        placeholder="Current Miles"
                     />
                 </div>
                 <button className="btn btn-success">Add Vehicle</button>                
