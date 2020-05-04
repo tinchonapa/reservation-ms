@@ -48,7 +48,7 @@ module.exports = {
             ['id', 'customer1_id', 'customer2_id', 'vehicle_id', 'date_in', 'date_out'])
     },
     editReservation(id, data) {
-        return('reservations')
+        return knex('reservations')
         .where('id', id)
         .update({
             customer1_id: data.customer1_id, customer2_id: data.customer2_id,
