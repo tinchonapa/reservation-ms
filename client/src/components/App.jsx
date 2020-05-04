@@ -14,6 +14,7 @@ class App extends React.Component {
             customers: [],
             editCustomer: {},
             vehicles: [],
+            editVehicle: {},
             reservations: [],
             editReservation: {},
             editCustBtn: false,
@@ -28,6 +29,8 @@ class App extends React.Component {
         this.hideCustomer = this.hideCustomer.bind(this);
         this.addNewVehicle = this.addNewVehicle.bind(this);
         this.getVehicles = this.getVehicles.bind(this);
+        this.onClickEditVeh = this.onClickEditVeh.bind(this);
+        this.editVehicle = this.editVehicle.bind(this);
         this.hideVehicle = this.hideVehicle.bind(this);
         this.addNewReservation = this.addNewReservation.bind(this);
         this.getReservations = this.getReservations.bind(this);
@@ -150,6 +153,27 @@ class App extends React.Component {
                 vehicles: data
             })
         })
+    }
+
+    onClickEditVeh(data, vehicle){
+        this.setState({
+            editVehBtn: data,
+            editVehicle: vehicle
+        });
+        console.log('vehicle edit executed?', vehicle)
+    }
+
+    editVehicle(vehicleData) {
+        var result = []; // variable to store customers state and then modify it, before staging changes
+        console.log('@ editCusotmer state.vehicles ', this.state.vehicles);
+        console.log('@ editCusotmer vehicleData ', vehicleData);
+        const index = this.state.vehicles.map((el) => { return el.id }).indexOf(vehicleData.id);
+        result = result.concat(this.state.vehicles);
+        result.splice(index,1,vehicleData);
+        this.setState({
+            vehicles: result, 
+            editVehBtn: false
+        });
     }
 
     // hides vehicle, doesn't delete
@@ -298,7 +322,12 @@ class App extends React.Component {
              {/* --- VEHICLE --- */}
              <div className="container vehicle-info">
                  <h3>Vehicle Info</h3>
-                 <VehicleForm addNewVehicle={this.addNewVehicle} />
+                 <VehicleForm 
+                    addNewVehicle={this.addNewVehicle}
+                    editVehicle={this.editVehicle}
+                    vehicle={this.state.editVehicle}
+                    edit={this.state.editVehBtn}
+                />
                  <table id="vehicle">
                      <thead>
                         <tr>
@@ -307,7 +336,11 @@ class App extends React.Component {
                             <th>Edit</th><th>Delete</th>
                         </tr>
                      </thead>
-                 <VehicleList onHideVehicle={this.hideVehicle} vehicles={this.state.vehicles} />
+                 <VehicleList 
+                    onHideVehicle={this.hideVehicle}
+                    onClickEditVehicle={this.onClickEditVeh}
+                    vehicles={this.state.vehicles} 
+                />
                  </table>
              </div>
              {/* --- RESERVATION --- */}
