@@ -3,6 +3,7 @@ import VehicleListItem from './VehicleListItem.jsx';
 
 const VehicleList = (props) => {
     var hideVehicle = props.onHideVehicle;
+    var editVehicle = props.onClickEditVehicle;
     const VehicleListComponents = props.vehicles.map((element) => {
         return (
             <VehicleListItem
@@ -15,6 +16,7 @@ const VehicleList = (props) => {
             color={element.color}
             miles={element.miles}
             onHideVehicle={hideVehicle}
+            onClickEditVehicle={editVehicle}
             />
         )
     })

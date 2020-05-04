@@ -13,6 +13,8 @@ class VehicleForm extends React.Component {
             miles:''
         }
         this.onInputChange = this.onInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onEditVehicle = this.onEditVehicle.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.vIdMaker = this.vIdMaker.bind(this);
         this.clearForm = this.clearForm.bind(this);
@@ -51,8 +53,39 @@ class VehicleForm extends React.Component {
         });
     }
 
-    onFormSubmit(event) {
+
+    handleSubmit(event){
         event.preventDefault();
+        console.log('@ handleSubmit ', this.props.edit);
+        this.props.edit ? this.onEditVehicle() : this.onFormSubmit();
+
+    }
+
+    onEditVehicle(){
+        const vehicleData = this.state;
+        const vId = this.state.vId;
+        console.log('onEditVehicle ', this.props.vehicle.id);
+        vehicleData.id = this.props.vehicle.id;
+        console.log('onEditVehicle ', vehicleData);
+        this.props.editVehicle(vehicleData);
+        fetch(`/api/vehicles/edit/${vId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(vehicleData)
+        })
+        .then(data => {
+            console.log('Success ', data);
+            // if this props.editCustomer(customerData) is moved here?
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        });
+        this.clearForm();
+    }
+
+    onFormSubmit() {
         const newVehicle = this.state;
         this.props.addNewVehicle(newVehicle);
         fetch('/api/vehicles', {
@@ -73,7 +106,7 @@ class VehicleForm extends React.Component {
 
     render() {
         return(
-            <form onSubmit={this.onFormSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label>VehicleID: </label>
                     <input name="vId"
