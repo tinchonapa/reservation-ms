@@ -19,7 +19,10 @@ class App extends React.Component {
             editReservation: {},
             editCustBtn: false,
             editVehBtn: false,
-            editResBtn: false
+            editResBtn: false,
+            showCustomerTab: true,
+            showVehicleTab: false,
+            showReservationTab: false
         }
 
         this.addNewCustomer = this.addNewCustomer.bind(this);
@@ -27,16 +30,19 @@ class App extends React.Component {
         this.onClickEditCust = this.onClickEditCust.bind(this);
         this.editCustomer = this.editCustomer.bind(this);
         this.hideCustomer = this.hideCustomer.bind(this);
+        this.customerNav = this.customerNav.bind(this);
         this.addNewVehicle = this.addNewVehicle.bind(this);
         this.getVehicles = this.getVehicles.bind(this);
         this.onClickEditVeh = this.onClickEditVeh.bind(this);
         this.editVehicle = this.editVehicle.bind(this);
         this.hideVehicle = this.hideVehicle.bind(this);
+        this.vehicleNav = this.vehicleNav.bind(this);
         this.addNewReservation = this.addNewReservation.bind(this);
         this.getReservations = this.getReservations.bind(this);
         this.onClickEditRes = this.onClickEditRes.bind(this);
         this.editReservation = this.editReservation.bind(this);
         this.hideReservation = this.hideReservation.bind(this);
+        this.reservationNav = this.reservationNav.bind(this);
     }
 
     componentDidMount() {
@@ -48,7 +54,10 @@ class App extends React.Component {
     // ------- CUSTOMERS Fn ------- //
     // // add fn to component form for state to be in sync
     addNewCustomer(newCustomerData) {
-        const id = this.state.customers.length + 1; // id for front-side does not correlate to db
+        const id = this.state.customers.length + 1; // id for front-side does not correlate to db it must be newCustomerData
+        var length = this.state.customers.length - 1;
+        console.log('testing length ', length)
+        console.log('testing ', this.state.customers[length].id) + 1;
         newCustomerData.id = id;
         const newCustomer = this.state.customers.concat(newCustomerData);
         this.setState({
@@ -280,47 +289,49 @@ class App extends React.Component {
         })
 
     }
+    // NAVIGATION fn //
+    customerNav(){
+        this.setState({showCustomerTab: !this.state.showCustomerTab})
+    }
 
-
-
-    //  ------- Render ------- //
-    render() {
-        return (
-         <div className="container">
-             <div className="jumbotron header">
-                <h1>Reservation Form</h1>
-                <div className="btn-group">
-                    <button type="button" className="btn btn-primary">New Customer</button>
-                    <button type="button" className="btn btn-primary">New Vehicle</button>
-                    <button type="button" className="btn btn-primary">New Reservation</button>
-                </div>
-             </div>
-             {/* --- CUSTOMER --- */}
-             <div className="container customer-info">
-                <h3>Customer Info</h3>
-                <CustomerForm 
-                    addNewCustomer={this.addNewCustomer}
-                    editCustomer={this.editCustomer} 
-                    customer={this.state.editCustomer} 
-                    edit={this.state.editCustBtn} 
-                />
-                <table id="customer">
-                    <thead>
-                        <tr>
-                            <th>ID</th><th>First Name</th><th>Last Name</th><th>DOB</th>
-                            <th>Driver's License #</th><th>Driver's License Exp</th>
-                            <th>Counthy</th><th>State</th><th>Edit</th><th>Delete</th>
-                        </tr>
-                    </thead>
-                    <CustomerList 
-                        onHideCustomer={this.hideCustomer} 
-                        onClickEditCustomer={this.onClickEditCust} 
-                        customers={this.state.customers} 
+    renderCustomer() {
+        if ( this.state.showCustomerTab ) {
+            return (
+                <div className="container customer-info">
+                    <h3>Customer Info</h3>
+                    <CustomerForm 
+                        addNewCustomer={this.addNewCustomer}
+                        editCustomer={this.editCustomer} 
+                        customer={this.state.editCustomer} 
+                        edit={this.state.editCustBtn} 
                     />
-                </table>
-             </div>
-             {/* --- VEHICLE --- */}
-             <div className="container vehicle-info">
+                    <table id="customer">
+                        <thead>
+                            <tr>
+                                <th>ID</th><th>First Name</th><th>Last Name</th><th>DOB</th>
+                                <th>Driver's License #</th><th>Driver's License Exp</th>
+                                <th>Country</th><th>State</th><th>Edit</th><th>Delete</th>
+                            </tr>
+                        </thead>
+                        <CustomerList 
+                            onHideCustomer={this.hideCustomer} 
+                            onClickEditCustomer={this.onClickEditCust} 
+                            customers={this.state.customers} 
+                        />
+                    </table>
+                </div>
+            )
+        } else { return null; }
+    }
+
+    vehicleNav(){
+        this.setState({showVehicleTab: !this.state.showVehicleTab})
+    }
+
+    renderVehicle() {
+        if ( this.state.showVehicleTab ) {
+            return (
+                <div className="container vehicle-info">
                  <h3>Vehicle Info</h3>
                  <VehicleForm 
                     addNewVehicle={this.addNewVehicle}
@@ -343,8 +354,18 @@ class App extends React.Component {
                 />
                  </table>
              </div>
-             {/* --- RESERVATION --- */}
-             <div className="container reservation-info">
+            )
+        } else { return null; }
+    }
+
+    reservationNav(){
+        this.setState({showReservationTab: !this.state.showReservationTab})
+    }
+
+    renderReservation() {
+        if ( this.state.showReservationTab ) {
+            return (
+            <div className="container reservation-info">
                 <h3>Reservation Info</h3>
                 <ReservationForm 
                     addNewReservation={this.addNewReservation}
@@ -364,7 +385,31 @@ class App extends React.Component {
                         onClickEditReservation={this.onClickEditRes}
                         reservations={this.state.reservations} />
                 </table>
+            </div>
+            )
+        } else { return null; }
+    }
+
+
+    //  ------- Render ------- //
+    render() {
+        return (
+         <div className="container">
+             <div className="jumbotron header">
+                <h1>Reservation Form</h1>
+                <div className="btn-group">
+                    <button type="button" className="btn btn-primary">Home</button>
+                    <button type="button" className="btn btn-primary" onClick={this.customerNav}>New Customer</button>
+                    <button type="button" className="btn btn-primary" onClick={this.vehicleNav}>New Vehicle</button>
+                    <button type="button" className="btn btn-primary" onClick={this.reservationNav}>New Reservation</button>
+                </div>
              </div>
+             {/* --- CUSTOMER --- */}
+             {this.renderCustomer()}
+             {/* --- VEHICLE --- */}
+             {this.renderVehicle()}
+             {/* --- RESERVATION --- */}
+             {this.renderReservation()}
          </div>
         )
     }
