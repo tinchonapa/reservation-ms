@@ -5,6 +5,7 @@ import VehicleForm from './VehicleForm.jsx';
 import VehicleList from './VehicleList.jsx';
 import ReservationForm from './ReservationForm.jsx';
 import ReservationList from './ReservationList.jsx';
+import Search from './Search.jsx';
 
 
 class App extends React.Component {
@@ -394,22 +395,58 @@ class App extends React.Component {
     //  ------- Render ------- //
     render() {
         return (
-         <div className="container">
-             <div className="jumbotron header">
-                <h1>Reservation Form</h1>
-                <div className="btn-group">
-                    <button type="button" className="btn btn-primary">Home</button>
-                    <button type="button" className="btn btn-primary" onClick={this.customerNav}>New Customer</button>
-                    <button type="button" className="btn btn-primary" onClick={this.vehicleNav}>New Vehicle</button>
-                    <button type="button" className="btn btn-primary" onClick={this.reservationNav}>New Reservation</button>
+        <div id="wrapper">
+            {/* Navbar */}
+            <ul className="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+                <a className="sidebar-brand d-flex align-items-center justify-content-center">
+                    <img src="/penny-rent-a-car.png" />
+                </a>
+                <hr className="sidebar-divider my-0" />
+                    <li className="nav-item active">
+                        <a className="nav-link">
+                            <i className="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                <hr className="sidebar-divider" />
+                <div className="sidebar-heading">
+                    Forms
                 </div>
-             </div>
-             {/* --- CUSTOMER --- */}
-             {this.renderCustomer()}
-             {/* --- VEHICLE --- */}
-             {this.renderVehicle()}
-             {/* --- RESERVATION --- */}
-             {this.renderReservation()}
+                <li className="nav-item">
+                    <a className="nav-link" onClick={this.customerNav}>
+                        <span>New Customer</span>
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" onClick={this.vehicleNav}>
+                        <span>New Vehicle</span>
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" onClick={this.reservationNav}>
+                        <span>New Reservation</span>
+                    </a>
+                </li>
+                <hr className="sidebar-divider" />
+            </ul>
+            <div className="container">
+                <div className="jumbotron header">
+                    <h1>Reservation Form</h1>
+                    {/* <Search /> */}
+                    <div className="btn-group">
+                        <button type="button" className="btn btn-primary">Home</button>
+                        <button type="button" className="btn btn-primary" onClick={this.customerNav}>New Customer</button>
+                        <button type="button" className="btn btn-primary" onClick={this.vehicleNav}>New Vehicle</button>
+                        <button type="button" className="btn btn-primary" onClick={this.reservationNav}>New Reservation</button>
+                    </div>
+                </div>
+                {/* --- CUSTOMER --- */}
+                {this.renderCustomer()}
+                {/* --- VEHICLE --- */}
+                {this.renderVehicle()}
+                {/* --- RESERVATION --- */}
+                {this.renderReservation()}
+            </div>
          </div>
         )
     }
