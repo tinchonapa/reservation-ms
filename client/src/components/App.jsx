@@ -298,7 +298,7 @@ class App extends React.Component {
     renderCustomer() {
         if ( this.state.showCustomerTab ) {
             return (
-                <div className="container customer-info">
+                <div className="customer-info">
                     <h3>Customer Info</h3>
                     <CustomerForm 
                         addNewCustomer={this.addNewCustomer}
@@ -332,7 +332,7 @@ class App extends React.Component {
     renderVehicle() {
         if ( this.state.showVehicleTab ) {
             return (
-                <div className="container vehicle-info">
+                <div className="vehicle-info">
                  <h3>Vehicle Info</h3>
                  <VehicleForm 
                     addNewVehicle={this.addNewVehicle}
@@ -366,7 +366,7 @@ class App extends React.Component {
     renderReservation() {
         if ( this.state.showReservationTab ) {
             return (
-            <div className="container reservation-info">
+            <div className="reservation-info">
                 <h3>Reservation Info</h3>
                 <ReservationForm 
                     addNewReservation={this.addNewReservation}
@@ -395,10 +395,56 @@ class App extends React.Component {
     //  ------- Render ------- //
     render() {
         return (
-            <div className="container">
+        <div id="wrapper">
+            {/* Navbar */}
+            <ul className="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+                <a className="sidebar-brand d-flex align-items-center justify-content-center">
+                    <img src="/penny-rent-a-car.png" />
+                </a>
+                <hr className="sidebar-divider my-0" />
+                    <li className="nav-item active">
+                        <a className="nav-link">
+                            <i className="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                <hr className="sidebar-divider" />
+                <div className="sidebar-heading">
+                    Forms
+                </div>
+                <li className="nav-item">
+                    <a className="nav-link" onClick={this.customerNav}>
+                        <span>New Customer</span>
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" onClick={this.vehicleNav}>
+                        <span>New Vehicle</span>
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" onClick={this.reservationNav}>
+                        <span>New Reservation</span>
+                    </a>
+                </li>
+                <hr className="sidebar-divider" />
+            </ul>
+            {/* Content */}
+            <div id="content-wrapper" className="d-flex flex-column">
+                <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <Search className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" />
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item no-arrow">
+                            <a className="nav-link" href="#" id="userDropdown" aria-haspopup="true" aria-expanded="false">
+                                <span className="mr-2 d-none d-lg-inline text-gray-600 small">User</span>
+                                {/* <img className="img-profile rounded-circle"></img> */}
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
                 <div className="jumbotron header">
                     <h1>Reservation Form</h1>
-                    {/* <Search /> */}
                     <div className="btn-group">
                         <button type="button" className="btn btn-primary">Home</button>
                         <button type="button" className="btn btn-primary" onClick={this.customerNav}>New Customer</button>
@@ -413,7 +459,7 @@ class App extends React.Component {
                 {/* --- RESERVATION --- */}
                 {this.renderReservation()}
             </div>
-        //  </div>
+         </div>
         )
     }
 }
