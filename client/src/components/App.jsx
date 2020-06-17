@@ -5,6 +5,7 @@ import VehicleForm from './VehicleForm.jsx';
 import VehicleList from './VehicleList.jsx';
 import ReservationForm from './ReservationForm.jsx';
 import ReservationList from './ReservationList.jsx';
+import Search from './Search.jsx';
 
 
 class App extends React.Component {
@@ -394,23 +395,25 @@ class App extends React.Component {
     //  ------- Render ------- //
     render() {
         return (
-         <div className="container">
-             <div className="jumbotron header">
-                <h1>Reservation Form</h1>
-                <div className="btn-group">
-                    <button type="button" className="btn btn-primary">Home</button>
-                    <button type="button" className="btn btn-primary" onClick={this.customerNav}>New Customer</button>
-                    <button type="button" className="btn btn-primary" onClick={this.vehicleNav}>New Vehicle</button>
-                    <button type="button" className="btn btn-primary" onClick={this.reservationNav}>New Reservation</button>
+            <div className="container">
+                <div className="jumbotron header">
+                    <h1>Reservation Form</h1>
+                    {/* <Search /> */}
+                    <div className="btn-group">
+                        <button type="button" className="btn btn-primary">Home</button>
+                        <button type="button" className="btn btn-primary" onClick={this.customerNav}>New Customer</button>
+                        <button type="button" className="btn btn-primary" onClick={this.vehicleNav}>New Vehicle</button>
+                        <button type="button" className="btn btn-primary" onClick={this.reservationNav}>New Reservation</button>
+                    </div>
                 </div>
-             </div>
-             {/* --- CUSTOMER --- */}
-             {this.renderCustomer()}
-             {/* --- VEHICLE --- */}
-             {this.renderVehicle()}
-             {/* --- RESERVATION --- */}
-             {this.renderReservation()}
-         </div>
+                {/* --- CUSTOMER --- */}
+                {this.renderCustomer()}
+                {/* --- VEHICLE --- */}
+                {this.renderVehicle()}
+                {/* --- RESERVATION --- */}
+                {this.renderReservation()}
+            </div>
+        //  </div>
         )
     }
 }
