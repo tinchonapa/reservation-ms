@@ -13,7 +13,7 @@ const CustomerList = (props) => {
         return (
             <CustomerListItem
             key={element.id}
-            id={element.id}
+            // id={element.id} ** to be removed and replaced with a '+' sign to add customer to reservation?
             first_name={element.first_name}
             last_name={element.last_name}
             dob={element.dob}

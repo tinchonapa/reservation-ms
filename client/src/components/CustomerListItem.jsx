@@ -16,7 +16,7 @@ const CustomerListItem = (props) => {
     // console.log('edit ', customer)
     return (
         <tr>
-            <td>{props.id}</td>
+            <td>+</td>
             <td>{props.first_name}</td>
             <td>{props.last_name}</td>
             <td>{props.dob}</td>
