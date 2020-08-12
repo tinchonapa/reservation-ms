@@ -23,7 +23,8 @@ class App extends React.Component {
             editResBtn: false,
             showCustomerTab: true,
             showVehicleTab: false,
-            showReservationTab: false
+            showReservationTab: false,
+            searchfield: ''
         }
 
         this.addNewCustomer = this.addNewCustomer.bind(this);
@@ -44,6 +45,7 @@ class App extends React.Component {
         this.editReservation = this.editReservation.bind(this);
         this.hideReservation = this.hideReservation.bind(this);
         this.reservationNav = this.reservationNav.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
     }
 
     componentDidMount() {
@@ -290,13 +292,17 @@ class App extends React.Component {
         })
 
     }
-    // NAVIGATION fn //
+    // ------- NAVIGATION Fn ------- //
     customerNav(){
         this.setState({showCustomerTab: !this.state.showCustomerTab})
     }
 
     renderCustomer() {
         if ( this.state.showCustomerTab ) {
+            const filteredCustomers = this.state.customers.filter(customers => {
+                return customers.last_name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+            });
+            console.log('This is filtered ', filteredCustomers)
             return (
                 <div className="customer-info">
                     <h3>Customer Info</h3>
@@ -317,7 +323,7 @@ class App extends React.Component {
                         <CustomerList 
                             onHideCustomer={this.hideCustomer} 
                             onClickEditCustomer={this.onClickEditCust} 
-                            customers={this.state.customers} 
+                            customers={filteredCustomers} 
                         />
                     </table>
                 </div>
@@ -391,6 +397,10 @@ class App extends React.Component {
         } else { return null; }
     }
 
+    // ------- SEARCH Fn ------- //
+    onSearchChange(event) {
+        this.setState({ searchfield:event.target.value });
+    }
 
     //  ------- Render ------- //
     render() {
@@ -429,22 +439,10 @@ class App extends React.Component {
                 </li>
                 <hr className="sidebar-divider" />
             </ul>
-            {/* Content */}
-            <div id="content-wrapper" className="d-flex flex-column">
-                <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <Search className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" />
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item no-arrow">
-                            <a className="nav-link" href="#" id="userDropdown" aria-haspopup="true" aria-expanded="false">
-                                <span className="mr-2 d-none d-lg-inline text-gray-600 small">User</span>
-                                {/* <img className="img-profile rounded-circle"></img> */}
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
+            <div className="container">
                 <div className="jumbotron header">
                     <h1>Reservation Form</h1>
+                    <Search searchChange={this.onSearchChange}/>
                     <div className="btn-group">
                         <button type="button" className="btn btn-primary">Home</button>
                         <button type="button" className="btn btn-primary" onClick={this.customerNav}>New Customer</button>
